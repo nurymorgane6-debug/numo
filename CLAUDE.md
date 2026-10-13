@@ -6,4 +6,4 @@ Site statique, sans build : tout est dans `index.html` (HTML + CSS + JS), les ph
 - Le site est bilingue FR/EN : toute modif de texte doit être faite dans les deux langues.
 - Design volontairement sombre ; polices Bodoni Moda (titres) et Inter (texte).
 - Pour tester en local : ouvrir `index.html` dans un navigateur.
-- Le site est mis en ligne automatiquement à chaque push sur la branche `main`.
+- Le site est mis en ligne automatiquement à chaque push sur la branche `main`, à l'adresse https://numo-interior.com (GitHub Pages, DNS chez Cloudflare). Ne pas supprimer le fichier `CNAME`.
