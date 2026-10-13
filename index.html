@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NUMO – Morgane Nury</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* Design volontairement sombre dans les deux modes */
+:root{--bg:#100a0a;--fg:#f2ebe4;--mut:#9a8d85;--acc:#c9a468;--line:rgba(244,241,238,.18);--serif:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;--sans:Inter,"Helvetica Neue",Arial,sans-serif;--pad:clamp(1.2rem,4vw,3.4rem);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#100a0a;--fg:#f2ebe4}}
+:root[data-theme="dark"]{--bg:#100a0a;--fg:#f2ebe4}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--fg);font:300 .95rem/1.75 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:150;opacity:.09;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:4px}
+img{display:block;max-width:100%}
+.c{position:fixed;z-index:60;top:calc(1.6rem + env(safe-area-inset-top,0px));font:400 .95rem var(--sans);letter-spacing:.04em}
+.logo{left:var(--pad);top:calc(1.3rem + env(safe-area-inset-top,0px));font:400 2.2rem/1 var(--serif)}.menu{right:var(--pad)}
+.foot{display:flex;justify-content:space-between;padding:3rem var(--pad) 2.2rem;font:400 .95rem var(--sans);letter-spacing:.04em}
+body.home .foot{position:fixed;left:0;right:0;bottom:env(safe-area-inset-bottom,0px);z-index:60;padding:0 var(--pad) 2.2rem}
+.menu:hover,.foot a:hover{opacity:.55}
+#cur{position:fixed;left:0;top:0;z-index:200;pointer-events:none;opacity:0;transition:opacity .3s;mix-blend-mode:difference;color:#fff}
+#cur.on{opacity:1}
+#cur i{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+#cur.big i{transform:scale(1.7)}
+#cur span{position:absolute;left:24px;top:-.7em;font:italic 400 1rem/1 var(--serif);white-space:nowrap;opacity:0;transition:opacity .25s}
+#cur.lbl span{opacity:1}
+@media (hover:hover){html,a,button{cursor:none}}
+@media (hover:none){#cur{display:none}}
+/* intro */
+#intro{position:fixed;inset:0;z-index:300;background:var(--bg);color:#fff;display:grid;place-items:center;overflow:hidden;transition:transform 1.1s cubic-bezier(.77,0,.18,1)}
+#intro.done{transform:translateY(-100%)}
+.rows{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:2vh 0;opacity:.12}
+.rows div,.nx div{white-space:nowrap;font:400 12vh/1 var(--serif);animation:slide 16s linear infinite}
+.rows div:nth-child(even),.nx div:nth-child(even){animation-direction:reverse}
+@keyframes slide{to{transform:translateX(-50%)}}
+.hello{position:relative;font:400 clamp(3.4rem,11vw,10rem)/.95 var(--serif);text-align:center}
+.count,.skip{position:absolute;bottom:calc(2rem + env(safe-area-inset-bottom,0px));font:400 .95rem var(--sans);color:#fff}
+.count{font:400 clamp(2rem,4vw,3.4rem)/1 var(--serif);bottom:calc(1.6rem + env(safe-area-inset-bottom,0px))}
+.count{left:var(--pad)}.skip{right:var(--pad);background:none;border:0;cursor:pointer;padding:0}
+/* home */
+.stage{height:100svh;min-height:420px;display:grid;place-items:center}
+.mark{margin:0;padding-left:.14em;font:400 clamp(3.6rem,13vw,12rem)/1 var(--serif);letter-spacing:.14em}
+/* works list */
+.works{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:8rem var(--pad) 4rem}
+.works ul{list-style:none;margin:0;padding:0}
+.works a{display:flex;justify-content:space-between;align-items:baseline;gap:2rem;padding:.2rem 0;transition:opacity .35s}
+.works h2{margin:0;font:400 clamp(2.6rem,9vw,8.5rem)/1.02 var(--serif);letter-spacing:-.02em}
+.works span{color:var(--mut);font-size:.9rem;text-align:right;max-width:24ch}
+.works ul:hover a{opacity:.25}.works ul a:hover,.works ul a:focus-visible{opacity:1}
+.thumb{display:none}
+#peek{position:fixed;left:0;top:0;width:clamp(230px,24vw,400px);aspect-ratio:4/5;object-fit:cover;pointer-events:none;opacity:0;z-index:20;transition:opacity .3s}
+@media (hover:none){#peek{display:none}.thumb{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;margin:.5rem 0 1.4rem}.works a{flex-direction:column;gap:0}.works span{text-align:left}}
+@media (max-width:700px){.works span{display:none}}
+/* project */
+.pj{padding:8.5rem var(--pad) 0;max-width:1320px;margin:0 auto}
+.pj h1{margin:0;text-align:center;font:400 clamp(3rem,10vw,9.5rem)/1 var(--serif);letter-spacing:-.025em}
+.pj .sub{text-align:center;margin:.6rem 0 3rem;font:400 clamp(1rem,1.6vw,1.4rem) var(--serif)}
+.pj .top{width:100%;height:auto}
+.row{display:grid;grid-template-columns:minmax(7rem,1fr) 3fr;gap:1.5rem;padding:2.2rem 0;border-bottom:1px solid var(--line)}
+.row h3{margin:0;font:400 .85rem var(--sans);color:var(--mut)}
+.row p{margin:0 0 1rem;max-width:62ch}.row p:last-child{margin:0}
+.row dl{margin:0 0 1.4rem;display:grid;grid-template-columns:9rem 1fr;gap:.2rem 1rem}.row dt{color:var(--mut)}.row dd{margin:0}
+.sw{display:flex;flex-wrap:wrap;gap:1.6rem}.sw span{display:flex;align-items:center;gap:.7rem}.sw i{width:2rem;height:2rem;border:1px solid var(--line)}
+.stack{display:grid;gap:clamp(1.5rem,4vw,3.5rem);padding:3rem 0}
+.stack img{width:100%;height:auto}
+.nx{position:relative;display:block;margin-top:5rem;overflow:hidden}
+.nx img{width:100%;height:60svh;min-height:320px;object-fit:cover;filter:brightness(.55)}
+.nx .t{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-around;mix-blend-mode:difference;color:#fff}
+.nx div{font-size:9vh}
+.nx b{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;font:400 clamp(2.6rem,8vw,7.5rem)/1 var(--serif);letter-spacing:-.02em;z-index:2}
+/* profile */
+.prof{padding:9rem var(--pad) 2rem;max-width:1320px;margin:0 auto}
+.prof h1{margin:0 0 5rem;font:400 clamp(2.2rem,6vw,5.6rem)/1.04 var(--serif);letter-spacing:-.02em;max-width:20ch}
+.prof .row b{font:400 1.6rem/1.2 var(--serif);display:block}.prof em{font-style:normal;color:var(--mut);font-size:.88rem}
+.prof a:hover{opacity:.55}
+@media (max-width:760px){.row{grid-template-columns:1fr;gap:.6rem}.row dl{grid-template-columns:6rem 1fr}}
+@media (prefers-reduced-motion:no-preference){body.ready .mark,body.ready .pf,body.ready .tg,body.ready .band{animation:fade 1.8s .2s both}}
+@keyframes fade{from{opacity:0}}
+@media (prefers-reduced-motion:reduce){.rows div,.nx div{animation:none}#intro{transition:none}}
+::selection{background:var(--acc);color:var(--bg)}
+a:focus-visible,button:focus-visible{outline-color:var(--acc)}
+.foot a:hover,.prof a:hover{color:var(--acc);opacity:1}
+.pj{max-width:1500px}
+.pj h1{text-align:left}
+.pj .sub{text-align:left;color:var(--acc);font-style:italic;margin:.4rem 0 3.5rem}
+.cols{display:grid;grid-template-columns:minmax(280px,4fr) 7fr;gap:clamp(2rem,6vw,6rem);align-items:start}
+.side{position:sticky;top:6.5rem}
+.side .row{grid-template-columns:1fr;gap:.4rem;padding:1.4rem 0}.side .row:first-child{padding-top:0}
+.side .row dl{grid-template-columns:6rem 1fr;margin-bottom:1rem}
+.cols .stack{padding:0;gap:clamp(1rem,2.5vw,2rem)}
+.nx .t{mix-blend-mode:normal;color:var(--acc);opacity:.55}
+@media (max-width:900px){.cols{grid-template-columns:1fr}.side{position:static}}
+.pm{overflow:hidden;white-space:nowrap;margin:0 calc(var(--pad) * -1) 4.5rem}.pm div{display:inline-block;font:400 clamp(4rem,14vw,12rem)/1 var(--serif);letter-spacing:-.02em;color:var(--acc);animation:slide 40s linear infinite}
+@media (prefers-reduced-motion:reduce){.pm div{animation:none}}
+.en{color:var(--mut);font-style:italic}
+.pr{margin-bottom:1.8rem}.pr span,.pr em{display:block}.pr b{margin-bottom:.1rem}.pr p{margin:0}.pr p.en{margin-top:.3rem}.pr span.en{margin-bottom:.4rem}
+.prof h1 .en{display:block;margin-top:1.4rem;font:italic 400 clamp(1.1rem,2vw,1.7rem)/1.3 var(--serif);letter-spacing:0;max-width:44ch}
+.row h3 i{display:inline;font-style:normal}
+.enb{margin-top:.9rem;color:var(--mut);font-style:italic}.enb b{font:italic 400 1.15rem/1.25 var(--serif);margin-bottom:.1rem}.enb em{color:var(--mut)}
+.ph{display:grid;grid-template-columns:1fr minmax(240px,420px);gap:2rem;align-items:end;margin-bottom:5.5rem}
+.ph h2{margin:0;font:400 clamp(3.6rem,14vw,12.5rem)/.9 var(--serif);letter-spacing:-.03em}
+.ph img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1) contrast(1.05) brightness(.92)}
+@media (max-width:760px){.ph{grid-template-columns:1fr}.ph img{max-width:360px}}
+.hi{max-width:62ch;margin:0 0 5.5rem}.hi .pr b{font-size:clamp(1.7rem,3vw,2.6rem);margin-bottom:.9rem}.hi .pr span{font-size:1.02rem;margin-bottom:1rem}.hi .enb{margin-top:1.2rem}.hi .enb b{font-size:clamp(1.15rem,1.8vw,1.5rem);margin-bottom:.4rem}
+.row .pr>span{margin-bottom:1rem}
+.hm{text-align:center}.pf{margin:0 0 1.2rem;padding-left:.4em;font:400 clamp(1rem,2.1vw,1.8rem)/1 var(--serif);letter-spacing:.4em}
+.hi{max-width:60ch}
+.hi .pr b{font:400 clamp(2.2rem,4.4vw,3.8rem)/1.05 var(--serif);letter-spacing:-.02em;margin-bottom:1.4rem;display:block}
+.hi .pr>span{font:300 .95rem/1.75 var(--sans);margin-bottom:1rem}
+.hi .enb{margin-top:2rem;color:var(--mut)}
+.hi .enb b{font:italic 400 clamp(1.3rem,2.2vw,1.9rem)/1.15 var(--serif);letter-spacing:0;margin-bottom:1rem}
+.hi .enb span{font:italic 300 .95rem/1.75 var(--sans);margin-bottom:1rem}
+.works{position:relative;z-index:1;align-items:stretch}
+.works a{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:2rem;padding:.35rem 0;transition:opacity .35s}
+.works h2{text-align:center;font-size:clamp(2.2rem,7.2vw,6.8rem);letter-spacing:-.01em;white-space:nowrap}
+.works .m{display:block;text-align:left;max-width:none;color:var(--fg);font-size:.9rem;line-height:1.35}
+.works .m b{display:block;font:400 1.15rem var(--serif);color:var(--fg)}
+.works ul:hover a{opacity:.3}
+#wbg{position:fixed;inset:0;z-index:0;pointer-events:none}
+#wbg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.92);opacity:0;transition:opacity .7s ease}
+#wbg img.on{opacity:.6}
+.thumb{filter:grayscale(1)}
+@media (hover:none),(max-width:700px){.works a{grid-template-columns:1fr;text-align:center;gap:.2rem;padding:.8rem 0}.works .m{text-align:center}.works .sp{display:none}.works .m b{display:inline;margin-right:.6rem}.works .thumb{display:block}}
+.works li.r{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:2rem;padding:.35rem 0}
+.works li.r a{display:block;padding:0}
+.works .m,.works .d{opacity:0;transition:opacity .35s;font-size:.9rem;line-height:1.35;color:var(--fg);max-width:none}
+.works .d{text-align:right}
+.works li.hv .m,.works li.hv .d{opacity:1}
+.works ul:hover a{opacity:1}
+.works ul.hov li:not(.hv) a{opacity:.7}
+#wbg img{inset:auto;left:50%;top:50%;width:min(30vw,420px);height:auto;aspect-ratio:4/5;transform:translate(-50%,-50%)}
+#wbg img.on{opacity:.75}
+
+.works li.r{display:block;text-align:center;padding:.2rem 0}
+.works li.r a{display:inline-block;position:relative;--fs:clamp(2.2rem,7.2vw,6.8rem)}
+.works h2{font-size:var(--fs)}
+.works .m,.works .d{position:absolute;white-space:nowrap;text-align:left}
+.works .m{right:100%;top:calc(var(--fs) * .2);margin-right:.9rem}
+.works .d{left:100%;bottom:calc(var(--fs) * .12);margin-left:.9rem}
+
+.hm{position:relative}
+.hm>.pf,.hm>.mark,.hm>.tg{position:relative;z-index:1}
+.tg{margin:1.4rem 0 0;font:italic 400 clamp(1rem,1.7vw,1.45rem)/1.3 var(--serif)}
+.band{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(14vw,190px);min-width:90px;height:62svh;z-index:0}
+.band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05) brightness(.85);opacity:0;transition:opacity 1.6s ease}
+.band img.on{opacity:.85}
+@media (prefers-reduced-motion:reduce){.band img{transition:none}}
+.ph{display:block}
+.ph img{width:100%;max-width:460px;margin-top:2.2rem}
+body{transition:background-color .7s ease}
+@media (max-width:700px){.works li.r a{display:block}.works .m,.works .d{position:static;display:block;margin:0;text-align:center}.works .thumb{display:none}}
+@media (hover:none){.works .m,.works .d,.works .thumb{display:none}#wbg{display:none}}
+.works h2{text-shadow:0 0 26px rgba(0,0,0,.55)}
+#wbg img{top:var(--y,50%);width:min(24vw,340px);transition:opacity .7s ease,top .55s cubic-bezier(.2,.7,.2,1)}
+.lg{left:50%;transform:translateX(-50%);display:flex;gap:.45rem;align-items:baseline;font-size:.9rem}
+.lg button{background:none;border:0;padding:0;color:var(--fg);font:inherit;opacity:.45;cursor:pointer;transition:opacity .3s}
+.lg button.cur,.lg button:hover{opacity:1}.lg span{opacity:.35}
+#gate{position:fixed;inset:0;z-index:250;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;transition:opacity .7s}
+#gate.off{opacity:0;pointer-events:none}
+#gate button{background:none;border:0;padding:0;color:var(--fg);font:400 clamp(3rem,10vw,9rem)/1.05 var(--serif);letter-spacing:-.02em;cursor:pointer;transition:opacity .3s,color .3s}
+#gate:hover button{opacity:.35}#gate button:hover{opacity:1;color:var(--acc)}
+.sk{display:inline-flex;align-items:center;gap:.7rem;margin-top:2.6rem;max-width:40ch;font:300 .92rem/1.4 var(--sans);text-align:left;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+.sk i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--acc)}.sk:hover{border-color:var(--fg)}
+.seek{display:flex;flex-wrap:wrap;align-items:center;gap:1.4rem 2rem;margin:0 0 4.5rem;padding:1.8rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.seek p{margin:0;flex:1 1 22rem;font:400 clamp(1.4rem,2.6vw,2.2rem)/1.2 var(--serif)}
+.btn{border:1px solid var(--fg);padding:.7rem 1.5rem;border-radius:999px;font-size:.9rem;transition:background .3s,color .3s}.btn:hover{background:var(--fg);color:var(--bg)}
+@media (prefers-reduced-motion:no-preference){.sk i{animation:pulse 2.4s ease-in-out infinite}}
+@keyframes pulse{50%{opacity:.25}}
+@media (max-width:560px){.lg{left:auto;right:calc(var(--pad) + 5.5rem);transform:none}}
+.seek .ad{display:block;margin-top:.5rem;font:300 .9rem var(--sans);color:var(--mut)}
+</style>
+</head>
+<body class="home">
+<div id="intro" aria-hidden="true"><div class="rows" id="rows"></div><div class="hello">Hello,<br>Interiors.</div><div class="count" id="count">0</div></div>
+<a class="c logo" href="#/" aria-label="NUMO, retour à l'accueil">N</a><a class="c menu" id="menu" href="#/projets">WORKS</a>
+<div class="c lg" role="group" aria-label="Language"><button data-l="fr">FR</button><span>/</span><button data-l="en">EN</button></div>
+<div id="cur"><i></i><span></span></div>
+<main id="app"></main>
+<script>
+const IMG={"aurae": {"h": "images/aurae-h.jpg", "hr": 1.541, "a": "images/aurae-a.jpg", "ar": 1.268, "b": "images/aurae-b.jpg", "br": 0.943}, "tchin": {"h": "images/tchin-h.jpg", "hr": 1.6, "a": "images/tchin-a.jpg", "ar": 0.941, "b": "images/tchin-b.jpg", "br": 1.268}, "bobine": {"h": "images/bobine-h.jpg", "hr": 1.6, "a": "images/bobine-a.jpg", "ar": 0.929, "b": "images/bobine-b.jpg", "br": 1.252}, "sweet": {"h": "images/sweet-h.jpg", "hr": 1.6, "a": "images/sweet-a.jpg", "ar": 0.941, "b": "images/sweet-b.jpg", "br": 1.252}, "perriere": {"h": "images/perriere-h.jpg", "hr": 1.623, "a": "images/perriere-a.jpg", "ar": 0.943, "b": "images/perriere-b.jpg", "br": 1.252}};
+let L=null;try{L=localStorage.getItem('numo-lang')}catch(e){}
+const hasChoice=!!L;if(!L)L=(navigator.language||'fr').toLowerCase().startsWith('fr')?'fr':'en';
+const MAIL='nurymorgane6@gmail.com';
+const D={
+fr:{menu:'PROJETS',prof:'PROFIL',tag:'Architecture d’intérieur et direction artistique, Lyon',seek:'Je recherche un stage de 4e année, à partir de janvier ou mars 2027.',contact:'Me contacter',role:'Rôle',roleV:'Conception d’architecture d’intérieur',desc:'Description',prog:'Programme',place:'Lieu',year:'Année',colors:'Couleurs',soft:'Logiciels',credit:'Crédit',next:'SUIVANT',nextAria:'Projet suivant : ',alt:'vue du projet',copied:'Adresse copiée',
+ profile:'PROFIL',hi:'Coucou, et bienvenue chez moi&nbsp;:)',
+ numo:['NUMO est un studio de design et d’architecture intérieure qui imagine des espaces sensibles, contemporains et profondément ancrés dans leur identité.','Fondé autour d’une approche mêlant réflexion, créativité et intuition, NUMO cherche à révéler l’essence propre à chaque projet pour construire des lieux cohérents, singuliers et mémorables. Chaque espace devient l’expression d’une histoire, d’un usage et d’une atmosphère.','En plaçant l’expérience au cœur du processus de création, NUMO accompagne chaque projet de la réflexion conceptuelle jusqu’aux détails qui lui donnent sa personnalité. Matières, volumes, lumière, couleurs et usages sont pensés comme un ensemble pour créer des espaces à la fois fonctionnels et émotionnels.','NUMO défend une vision du design où l’esthétique ne se suffit pas à elle-même&nbsp;: elle doit avoir du sens, raconter quelque chose et créer une véritable expérience.'],
+ stmt:'Je conçois des espaces où chaque détail donne du sens à l’expérience.',
+ secs:[{h:'Formation',i:[['CREAD Lyon','Architecture d’intérieur et design global, titre RNCP de niveau 7','Depuis septembre 2023'],['Baccalauréat général','Lycée Émile Loubet, Valence. Option arts plastiques','2020 – 2023']]},
+ {h:'Expériences',i:[['Atelier TDR Architectes','Stage à Valence&nbsp;: plans sur Archicad, maquettes et visuels de présentation','Mai – juin 2026'],['Lumo, lauréate de la battle inter-écoles EDH','Scénographie immersive et interactive pour le MBA Lyon, autour de la lumière','2025'],['Cuisinella','Stage à Aubenas&nbsp;: aménagements sur mesure, plans et perspectives 3D','Juin – juillet 2025'],['Chebance &amp; Fils','Stage à Saint-Péray&nbsp;: second œuvre et chantier','Juin – juillet 2024']]},
+ {h:'Logiciels',i:[['','Archicad, AutoCAD, SketchUp<br>V-Ray, Twinmotion<br>Photoshop, InDesign','']]}],
+ title:{home:'NUMO – Morgane Nury',works:'Projets – NUMO',prof:'Profil – NUMO'}},
+en:{menu:'WORKS',prof:'PROFILE',tag:'Interior architecture &amp; art direction, Lyon',seek:'Looking for a 4th-year internship, starting January or March 2027.',contact:'Get in touch',role:'Role',roleV:'Interior architecture design',desc:'Description',prog:'Programme',place:'Place',year:'Year',colors:'Colors',soft:'Software',credit:'Credit',next:'NEXT',nextAria:'Next project: ',alt:'project view',copied:'Address copied',
+ profile:'PROFILE',hi:'Hi, and welcome in :)',
+ numo:['NUMO is an interior design and architecture studio that imagines sensitive, contemporary spaces deeply rooted in their identity.','Founded on an approach that blends reflection, creativity and intuition, NUMO seeks to reveal the essence of each project in order to build coherent, singular and memorable places. Every space becomes the expression of a story, a use and an atmosphere.','Placing experience at the heart of the creative process, NUMO accompanies each project from conceptual thinking down to the details that give it its personality. Materials, volumes, light, colors and uses are considered as a whole to create spaces that are both functional and emotional.','NUMO stands for a vision of design where aesthetics are not enough on their own: they must carry meaning, tell something and create a true experience.'],
+ stmt:'I design spaces where every detail gives meaning to the experience.',
+ secs:[{h:'Education',i:[['CREAD Lyon','Interior architecture and global design, RNCP level 7 degree','Since September 2023'],['General baccalaureate','Émile Loubet high school, Valence. Visual arts option','2020 – 2023']]},
+ {h:'Experience',i:[['Atelier TDR Architectes','Internship in Valence: Archicad plans, models and presentation visuals','May – June 2026'],['Lumo, winner of the EDH inter-school battle','Immersive, interactive scenography for the MBA Lyon, built around light','2025'],['Cuisinella','Internship in Aubenas: custom fittings, plans and 3D perspectives','June – July 2025'],['Chebance &amp; Fils','Internship in Saint-Péray: finishing work and site work','June – July 2024']]},
+ {h:'Software',i:[['','Archicad, AutoCAD, SketchUp<br>V-Ray, Twinmotion<br>Photoshop, InDesign','']]}],
+ title:{home:'NUMO – Morgane Nury',works:'Works – NUMO',prof:'Profile – NUMO'}}};
+/* Projets : nom, programme et deux textes par langue */
+const P={
+perriere:{t:'Innesto',lieu:'Mercurey',pal:['8A5A3C','6B6B3A','D9C7A8','3A2A20'],acc:'d9c7a8',
+ sub:{fr:'Duplex d’étudiant',en:'Student duplex'},
+ p:{fr:['À Mercurey, un duplex d’étudiant se reconstruit autour d’une seule intervention&nbsp;: une greffe de bois clair et de métal noir qui relie les deux niveaux. Le claustra, l’escalier et le mobilier intégré se prolongent et forment un seul geste.','Les ouvertures rondes du claustra cadrent les vues sans fermer l’espace, la lumière le traverse, et la tête de lit en arche, d’un brun cuivré, réchauffe la chambre. L’existant reste en place&nbsp;; la greffe lui répond par ses matières et ses formes affirmées.'],
+ en:['In Mercurey, a student duplex is rebuilt around a single intervention: a graft of light wood and black metal that ties the two levels together. The claustra screen, the staircase and the built-in furniture extend one another and read as one gesture.','The round openings of the screen frame the views without closing off the space, light passes through, and the arched headboard in coppery brown warms the bedroom. The existing structure stays in place; the graft answers it with assertive materials and shapes.']}},
+aurae:{t:'Aurae',lieu:'Lyon',pal:['5A0F14','B08D57','120A0A','8C4A2F'],acc:'b08d57',
+ sub:{fr:'Bar à cocktails et parfumerie',en:'Cocktail bar and perfumery'},
+ p:{fr:['Aurae est un bar à cocktails qui s’ouvre sur une parfumerie&nbsp;: on y vient pour un verre, on en repart avec une odeur en tête. Au centre, un comptoir circulaire se tient sous de grands abat-jour cylindriques d’un rouge profond, dont le cœur ambré brille comme une braise.','Tout se joue sur l’ombre&nbsp;: bois sombre, surfaces satinées, filets de laiton, et un carrelage graphique qui dessine le parcours au sol. La lumière ne remplit pas la pièce, elle la sculpte, et le visiteur y avance comme dans un rituel.'],
+ en:['Aurae is a cocktail bar that opens onto a perfumery: you come for a drink and leave with a scent in mind. At the center, a circular counter sits beneath large cylindrical shades in deep red, whose amber core glows like an ember.','Everything plays on shadow: dark wood, satin surfaces, brass lines, and a graphic tiled floor that draws the route. Light does not fill the room, it sculpts it, and the visitor moves through it as in a ritual.']}},
+tchin:{t:'Tchin Tchin',lieu:'Lyon',pal:['7A1F1A','C49A6C','2B1D16','A67C52'],acc:'c49a6c',
+ sub:{fr:'Concept bar',en:'Concept bar'},
+ p:{fr:['Tchin Tchin fait de l’art de trinquer un lieu. Le comptoir est le cœur de la salle, avec ses étagères de bouteilles, son mur à vin et ses suspensions rouges&nbsp;; en façade, un imprimé léopard donne au meuble un côté sauvage et chaleureux.','Le bois clair apaise, le rouge réveille, l’imprimé fait sourire. Des gradins et des tabourets invitent à s’asseoir à plusieurs, et chaque coin a son rythme, du verre à deux jusqu’à la soirée qui s’emballe.'],
+ en:['Tchin Tchin turns the art of the toast into a place. The counter is the heart of the room, with its shelves of bottles, its wine wall and its red pendant lights; on the front, a leopard print gives the piece a wild, warm side.','Light wood soothes, red wakes things up, the print makes you smile. Stepped seating and stools invite groups to sit together, and every corner has its own rhythm, from a quiet drink for two to an evening that takes off.']}},
+sweet:{t:'Dolce',lieu:'Lyon',pal:['E8A9B5','9ED8C8','5B3A2E','F3D9DE'],acc:'e8a9b5',
+ sub:{fr:'Chambre d’hôtel immersive',en:'Immersive hotel room'},
+ p:{fr:['Dolce transforme une chambre d’hôtel en souvenir de goûter&nbsp;: un chariot de confiseur blanc sous son auvent rayé, un petit frigo vert d’eau sorti d’une cuisine d’autrefois, des murs rose poudré.','Dans la salle de bains, des carreaux roses et des vasques rondes comme des donuts, l’une rose, l’autre vert d’eau. Les suspensions chromées reflètent la pièce comme des bonbons&nbsp;: c’est gourmand, mais le dessin reste précis et sur mesure.'],
+ en:['Dolce turns a hotel room into a memory of afternoon snack time: a white confectioner’s cart under its striped awning, a small sea-green fridge from a kitchen of the past, powder-pink walls.','In the bathroom, pink tiles and round basins shaped like donuts, one pink, one sea green. The chrome pendants reflect the room like candy: it is sweet, but the drawing stays precise and custom-made.']}},
+bobine:{t:'Scena',lieu:'Lyon',pal:['4A0D12','D4AF6A','1A0F0D','7A5232'],acc:'d4af6a',
+ sub:{fr:'Cinéma et bar immersif',en:'Cinema and immersive bar'},
+ p:{fr:['Scena commence par une fausse supérette. Une porte discrète ouvre sur un couloir bordeaux, une enseigne CINEMA cernée d’ampoules, et une salle des années 70-80 que rien ne laissait deviner depuis la rue.','Le bar joue l’entracte&nbsp;: comptoir en lames de bois, lustres d’ampoules dorées, machine à pop-corn, tabourets vintage. Chaque détail prolonge le film, et la soirée ne s’arrête pas quand l’écran s’éteint.'],
+ en:['Scena begins with a fake convenience store. A discreet door opens onto a burgundy corridor, a CINEMA sign ringed with bulbs, and a 1970s-80s screening room that nothing in the street gave away.','The bar plays the intermission: a slatted wood counter, chandeliers of golden bulbs, a popcorn machine, vintage stools. Every detail extends the film, and the evening does not stop when the screen goes dark.']}}};
+const K=['perriere','aurae','tchin','sweet','bobine'],app=document.getElementById('app');let tm;
+const foot=()=>`<footer class="foot"><span>© MORGANE NURY</span><a href="#/profil">${D[L].prof}</a></footer>`;
+const pick=k=>IMG[k][IMG[k].ar<=IMG[k].br?'a':'b'];
+function home(){
+ const d=D[L];document.body.className=document.body.classList.contains('ready')?'home ready':'home';
+ app.innerHTML=`<section class="stage"><div class="hm"><div class="band" aria-hidden="true">${K.map((k,i)=>`<img src="${pick(k)}" alt="" class="${i?'':'on'}">`).join('')}</div><p class="pf">PORTFOLIO</p><h1 class="mark">NUMO</h1><p class="tg">${d.tag}</p></div></section>${foot()}`;
+ const im=[...app.querySelectorAll('.band img')];let n=0;clearInterval(tm);
+ if(!matchMedia('(prefers-reduced-motion:reduce)').matches)tm=setInterval(()=>{im[n].classList.remove('on');n=(n+1)%im.length;im[n].classList.add('on')},3600);
+ document.title=d.title.home;
+}
+function works(){
+ const d=D[L];document.body.className=document.body.classList.contains('ready')?'ready':'';
+ app.innerHTML=`<div id="wbg" aria-hidden="true">${K.map(k=>`<img data-k="${k}" src="${IMG[k].h}" alt="">`).join('')}</div><section class="works"><ul>${K.map(k=>`<li class="r"><a href="#/${k}" data-k="${k}"><span class="m"><b>2026</b></span><h2>${P[k].t.toUpperCase()}</h2><span class="d">${P[k].sub[L]}</span></a></li>`).join('')}</ul></section>${foot()}`;
+ const ul=app.querySelector('.works ul'),bg=[...document.querySelectorAll('#wbg img')],show=k=>bg.forEach(i=>i.classList.toggle('on',i.dataset.k===k));
+ app.querySelectorAll('.works a').forEach(a=>{const li=a.closest('li'),on=()=>{li.classList.add('hv');ul.classList.add('hov');show(a.dataset.k);const r=a.getBoundingClientRect(),h=Math.min(innerWidth*.24,340)*1.25,y=Math.max(h/2+16,Math.min(innerHeight-h/2-16,r.top+r.height/2));document.getElementById('wbg').style.setProperty('--y',y+'px')},off=()=>{li.classList.remove('hv');ul.classList.remove('hov');show(null)};
+  ['mouseenter','focus'].forEach(e=>a.addEventListener(e,on));['mouseleave','blur'].forEach(e=>a.addEventListener(e,off))});
+ document.title=d.title.works;document.getElementById('menu').style.visibility='hidden';
+}
+function project(k){
+ const d=D[L];document.body.className=document.body.classList.contains('ready')?'ready':'';
+ const p=P[k],n=K[(K.indexOf(k)+1)%K.length],q=P[n],im=IMG[k];
+ document.documentElement.style.setProperty('--acc','#'+p.acc);
+ app.innerHTML=`<article class="pj"><h1>${p.t}</h1><p class="sub">${p.sub[L]}</p><div class="cols"><aside class="side">
+ <div class="row"><h3>${d.role}</h3><div>${d.roleV}</div></div>
+ <div class="row"><h3>${d.desc}</h3><div><dl><dt>${d.prog}</dt><dd>${p.sub[L]}</dd><dt>${d.place}</dt><dd>${p.lieu}</dd><dt>${d.year}</dt><dd>2026</dd></dl><p>${p.p[L][0]}</p><p>${p.p[L][1]}</p></div></div>
+ <div class="row"><h3>${d.colors}</h3><div class="sw">${p.pal.map(c=>`<span><i style="background:#${c}"></i>#${c}</span>`).join('')}</div></div>
+ <div class="row"><h3>${d.soft}</h3><div>Archicad, SketchUp, V-Ray, Twinmotion, Photoshop</div></div>
+ <div class="row"><h3>${d.credit}</h3><div>CREAD Lyon</div></div></aside>
+ <div class="stack"><img src="${im.h}" alt="${p.t}"><img src="${im.a}" alt="${p.t}"><img src="${im.b}" alt="${p.t}"></div></div>
+ <a class="nx" href="#/${n}" aria-label="${d.nextAria}${q.t}"><img src="${IMG[n].h}" alt=""><div class="t" aria-hidden="true">${[0,1,2].map(()=>`<div>${(d.next+' ').repeat(30)}</div>`).join('')}</div><b>${q.t}</b></a></article>${foot()}`;
+ document.title=p.t+' – NUMO';
+}
+function profil(){
+ const d=D[L];document.body.className=document.body.classList.contains('ready')?'ready':'';
+ app.innerHTML=`<section class="prof"><div class="ph"><h2>${d.profile}</h2><img src="${IMG.aurae.b}" alt=""></div>
+ <div class="seek"><p>${d.seek}<small class="ad">${MAIL}</small></p><a class="btn" href="mailto:${MAIL}" target="_blank" rel="noopener">${d.contact}</a></div>
+ <div class="hi"><div class="pr"><b>${d.hi}</b>${d.numo.map(x=>`<span>${x}</span>`).join('')}</div></div>
+ <h1>${d.stmt}</h1>
+ ${d.secs.map(s=>`<div class="row"><h3>${s.h}</h3><div>${s.i.map(i=>`<div class="pr">${i[0]?`<b>${i[0]}</b>`:''}<span>${i[1]}</span>${i[2]?`<em>${i[2]}</em>`:''}</div>`).join('')}</div></div>`).join('')}
+ <div class="row"><h3>Contact</h3><div><p><a href="mailto:${MAIL}" target="_blank" rel="noopener"><b>${MAIL}</b></a><a href="tel:+33640742378" target="_blank" rel="noopener">06 40 74 23 78</a></p><p><a href="https://www.instagram.com/by.numo" target="_blank" rel="noopener">Instagram, @by.numo</a><br><a href="https://www.linkedin.com/in/morgane-nury-085520345" target="_blank" rel="noopener">LinkedIn, Morgane Nury</a></p></div></div></section>`;
+ document.title=d.title.prof;
+ const bt=app.querySelector('.btn');if(bt)bt.addEventListener('click',()=>{const t=bt.textContent,ok=()=>{bt.textContent=d.copied;setTimeout(()=>bt.textContent=t,2200)};const fb=()=>{try{const x=document.createElement('textarea');x.value=MAIL;x.style.position='fixed';x.style.opacity='0';document.body.appendChild(x);x.select();const r=document.execCommand('copy');x.remove();if(r)ok()}catch(e){}};try{navigator.clipboard.writeText(MAIL).then(ok,fb)}catch(e){fb()}});
+}
+function chrome(){const m=document.getElementById('menu');m.textContent=D[L].menu;document.documentElement.lang=L;document.querySelectorAll('.lg button').forEach(b=>b.classList.toggle('cur',b.dataset.l===L))}
+function route(){clearInterval(tm);const rs=document.documentElement.style;rs.removeProperty('--bg');rs.removeProperty('--acc');const h=location.hash.replace(/^#\/?/,'');scrollTo(0,0);
+ document.getElementById('menu').style.visibility='';chrome();
+ if(h==='profil')profil();else if(h==='projets')works();else if(P[h])project(h);else home()}
+function setLang(l){L=l;try{localStorage.setItem('numo-lang',l)}catch(e){}route()}
+document.querySelectorAll('.lg button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.l)));
+addEventListener('hashchange',route);route();
+/* curseur */
+const cur=document.getElementById('cur');let mx=0,my=0,qx=0,qy=0;
+addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.classList.add('on')});
+addEventListener('mouseover',e=>{const a=e.target.closest('a,button'),sp=cur.querySelector('span'),l=a?(a.closest('.nx')?(L==='fr'?'Suivant':'Next'):''):'';cur.classList.toggle('big',!!a);if(l)sp.textContent=l;cur.classList.toggle('lbl',!!l)});
+(function f(){qx+=(mx-qx)*.7;qy+=(my-qy)*.7;cur.style.transform=`translate(${qx}px,${qy}px)`;requestAnimationFrame(f)})();
+/* intro */
+const intro=document.getElementById('intro');
+if(matchMedia('(prefers-reduced-motion:reduce)').matches){intro.remove();document.body.classList.add('ready')}
+else{
+ document.getElementById('rows').innerHTML=Array.from({length:6},()=>`<div>${'LOADING '.repeat(28)}</div>`).join('');
+ const c=document.getElementById('count');let t0=performance.now(),done=false,ok=false,shown=0;
+ const end=()=>{if(done)return;done=true;intro.classList.add('done');document.body.classList.add('ready');setTimeout(()=>intro.remove(),1300)};
+ Promise.all([document.fonts?document.fonts.ready:0,new Promise(r=>document.readyState==='complete'?r():addEventListener('load',r))]).then(()=>ok=true);
+ (function tick(t){const el=t-t0;const target=(ok&&el>2400)||el>6000?100:Math.min(el/2400*90,90);
+  shown+=(target-shown)*.1;if(target===100&&shown>99.4)shown=100;
+  c.textContent=Math.round(shown);
+  shown<100?requestAnimationFrame(tick):setTimeout(end,400)})(t0);
+ }
+</script>
+</body>
+</html>
